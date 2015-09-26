@@ -122,12 +122,20 @@ def file_iterator(root, file2save):
         if file_lists[-1] == ['jpg']:
             str(img).strip('\t' or '\n')
         '''
-        for img in img1:
-            implement_path = str(root) + '/' + str(img)
-            file_wtire.writelines(str(img) + '\n')
-            print implement_path
+        for imgpath in img1:
+            implement_path = str(root) + '/' + str(imgpath)
+            file_wtire.writelines(str(imgpath) + '\n')
+
             img = cv2.imread(implement_path)
-            cv2.imshow('just_show', img)
+
+            size = (int(img.shape[1] * 0.444), int(img.shape[0] * 0.444))
+            img_resize = cv2.resize(img, size)
+            resize_img_path = 'E:/face/train/1_1_04_0/prob/side_face_resized/' + str(imgpath).strip()
+            print resize_img_path
+            cv2.imwrite(resize_img_path, img_resize)
+            print resize_img_path
+            # cv2.imwrite(resize_img_path, img_resize)
+            cv2.imshow('just_show', img_resize)
             cv2.waitKey(10)
             # cv2.imwrite(file2save + '/' + str(img), img)
     file_wtire.close()
@@ -146,7 +154,11 @@ if __name__ == '__main__':
     read_all_files(path[0], txt_file[0])
     '''
 
-    get_video_img('F:/face/20150817faceDetection/faceData', 'distance_set1', 'distance_set_img_name1.txt')
+    # get_video_img('F:/face/20150817faceDetection/faceData', 'distance_set1', 'distance_set_img_name1.txt')
     # read_txt_file_test('F:/face/20150817faceDetection/faceData/just_test1/test.txt')
 
     # file_iterator('F:/face/20150817faceDetection/faceData/AFW/testimages', 'F:/face/20150817faceDetection/faceData/AFW/AFW.txt')
+
+    # read_all_files('/media/wjy/Document/face/20150817faceDetection/faceData/Single face dataset/videoImg', '/media/wjy/Document/face/20150817faceDetection/faceData/Single face dataset/imgName.txt')
+    file_iterator('E:/face/train/1_1_04_0/prob/dongnanmeneast_15_1920x1080_30',
+                  'E:/face/train/1_1_04_0/prob/dongnanmeneast_15_1920x1080_30/side_face.txt')
